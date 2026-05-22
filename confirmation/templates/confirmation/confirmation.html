@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<html>
+    <head>
+        <title>Canada Chicken – Confirmation</title>
+        <link rel="stylesheet" href="{% static 'as2.css' %}">
+    </head>
+    <body>
+        <h1>Canada Chicken – Confirmation</h1>
+        <hr>
+
+        <h2>Thank you {{name}} for ordering<h2>
+        <h4>Your order will be ready at: {{time}} </h4>
+        <h3>information:</h3>
+        <p>Phone: {{phone}}</p>
+        <p>Email: {{email}}</p>
+        <p>Ordering: {{special}} {{O1}} {{O2}} {{burger}} with {{chicken}} {{veggie}} {{beef}} patty</p>
+        <p>Instructions: </p>
+        <p>{{instructions}}</p>
+    </body>
+</html>
+{% endblock %}

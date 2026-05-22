@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-8b%+x&ndncwttx!8-*e83(p@2c8v_x+ymftpj0)0y^766mx3!t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cs-webapps.bu.edu']
+ALLOWED_HOSTS = ['*','cs-webapps.bu.edu']
 
 
 # Application definition
@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'show_all',
     'about',
     'main',
+    'main2',
+    'restaurant',
+    'order',
+    'confirmation',
+    'base'
 ]
 
 # Static images
@@ -117,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 

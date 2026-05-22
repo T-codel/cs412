@@ -1,0 +1,33 @@
+<!-- order/templates/order/show_form.html -->
+{% extends 'order/order.html' %}
+
+{% block content %}
+<h1>Order Form</h1>
+<hr>
+<form action="{% url 'submit' %}" method="POST">
+{% csrf_token %}
+Name: <input type="text" name="name"><br>
+Phone: <input type="text" name="phone"><br>
+Email: <input type="text" name="email"><br><br>
+<p2>Daily Special: {{ specialT }} - $9.99</p2>
+<p><img src= "{{ special }}" alt="Special"></p>
+<input type="checkbox" name="special" value="{{ specialT }}"> Add to order<br><br>
+<hr>
+<p2>{{ O1n }} - $9.99</p2>
+<p><img src= "{{ O1 }}" alt="O1"></p>
+<input type="checkbox" name="O1" value="{{ O1n }}"> Add to order<br><br>
+<hr>
+<p2>{{ O2n }} - $9.99</p2>
+<p><img src= "{{ O2 }}" alt="O2"></p>
+<input type="checkbox" name="O2" value="{{ O2n }}"> Add to order<br><br>
+<hr>
+<p>Canada Burger - $10.99</p>
+<p><img src= "https://live.staticflickr.com/200/485640538_7ad0f41d55_b.jpg" alt="O2"></p>
+<input type="checkbox" name="O2" value="burger"> Add to order<br>
+Patty:
+<input type="checkbox" name="patty1" value="beef"> Beef
+<input type="checkbox" name="patty2" value="chicken"> Chicken
+<input type="checkbox" name="patty3" value="veggie"> Veggie<br><br>
+Instructions: <input type="text" name="instructions"><br>
+<input type="submit"></form>
+{% endblock %}

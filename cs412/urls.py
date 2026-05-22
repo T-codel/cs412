@@ -22,4 +22,9 @@ urlpatterns = [
     path("quote/", include("quotes.urls")),
     path("show_all/", include("show_all.urls")),
     path("about/", include("about.urls")),
+    #path("restaurant/", include("restaurant.urls")),
+    path("restaurant/main/", include("main2.urls")),
+    path("restaurant/order/", include("order.urls")),
+    path("restaurant/confirmation/", include("confirmation.urls")),
+
 ]
