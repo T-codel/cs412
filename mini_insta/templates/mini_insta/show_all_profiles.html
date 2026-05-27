@@ -1,0 +1,24 @@
+<!-- templates/show_all.html -->
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1>Showing all Articles</h1>
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<div>
+    {% for a in profiles %}
+    <div>
+		<h2>{{a.name}}</h2>
+		<h3>by {{a.bio_text}} at {{a.display_name}}</h3>
+		<p>
+        <p><img src= {{ a.profile_image_url }} alt="Random Quote Image"></p>
+		{{a.bio_text}}
+		</p>
+    </div>
+ 
+ 
+    {% endfor %}
+<div>
+{% endblock %}

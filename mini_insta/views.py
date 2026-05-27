@@ -7,21 +7,14 @@ from . import models
 
 
 # Create your views here.
-class ProfileListView(SingleObjectMixin, ListView):
-    paginate_by = 2
-    template_name = "books/publisher_detail.html"
+class ShowAllView(ListView):
+    '''Create a subclass of ListView to display all blog articles.'''
+ 
+ 
+    model = models.Profile # retrieve objects of type Article from the database
+    template_name = 'mini_insta/show_all_profiles.html'
+    context_object_name = 'profiles' # how to find the data in the template file
 
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object(queryset=models.objects.all())
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["publisher"] = self.object
-        return context
-
-    def get_queryset(self):
-        return self.object.book_set.all()
 
 
 def home(request):
@@ -29,7 +22,7 @@ def home(request):
  
  
     # the template to which we will delegate the work
-    template = 'main/base.html'
+    template = 'mini_insta/show_all_profiles.html'
  
  
     images = {
