@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'restaurant',
     'order',
     'confirmation',
-    'base'
+    'base',
+    'mini_insta'
 ]
 
 # Static images

@@ -1,0 +1,48 @@
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+<html>
+    <head>
+        <title>Instant Ram</title>
+        <link rel="stylesheet" href="{% static 'as2.css' %}">
+    </head>
+    <body>
+        <h1>Instant Ram</h1>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Display Name</th>
+                <th>IMG</th>
+            </tr>
+            <tr>
+                <td>Monday</td>
+                <td>11:00 AM – 10:00 PM</td>
+            </tr>
+            <tr>
+                <td>Tuesday</td>
+                <td>11:00 AM – 10:00 PM</td>
+            </tr>
+            <tr>
+                <td>Wednesday</td>
+                <td>11:00 AM – 10:00 PM</td>
+            </tr>
+            <tr>
+                <td>Thursday</td>
+                <td>11:00 AM – 11:00 PM</td>
+            </tr>
+            <tr>
+                <td>Friday</td>
+                <td>11:00 AM – 12:00 AM</td>
+            </tr>
+            <tr>
+                <td>Saturday</td>
+                <td>10:00 AM – 12:00 AM</td>
+            </tr>
+            <tr>
+                <td>Sunday</td>
+                <td>10:00 AM – 9:00 PM</td>
+            </tr>
+        </table>
+    </body>
+</html>
+{% endblock %}

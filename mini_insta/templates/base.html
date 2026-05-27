@@ -1,0 +1,17 @@
+{% load static %}
+<html>
+    <head>
+        <title>Title</title>
+        <link rel="stylesheet" href="{% static 'as2.css' %}">
+    </head>
+    <body>
+        <nav>
+            <a href="{% url 'main2' %}">Home</a>
+            <a href="{% url 'order' %}">Order</a>
+            <a href="{% url 'confirmation' %}">Confirmation</a>
+        </nav>
+        <hr>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
