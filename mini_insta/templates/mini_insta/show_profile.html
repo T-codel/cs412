@@ -1,0 +1,21 @@
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<h1>Profile: {{profile.display_name}}</h1>
+<div>
+    <p>{{profile.username}}</p> <p>{{profile.join_date}}</p>
+</div>
+<hr>
+<div>
+    <div>
+		<p>
+        <p><img src= {{ profile.profile_image_url }} alt="Random Quote Image"></p>
+		{{profile.bio_text}}
+		</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,17 +1,21 @@
 {% load static %}
 <html>
     <head>
-        <title>Title</title>
+        <title>PreisdentGram</title>
         <link rel="stylesheet" href="{% static 'as2.css' %}">
     </head>
     <body>
         <nav>
-            <a href="{% url 'main2' %}">Home</a>
-            <a href="{% url 'order' %}">Order</a>
-            <a href="{% url 'confirmation' %}">Confirmation</a>
+            <a href="{% url 'show_all' %}">Home</a>
         </nav>
+        <h1>PreisdentGram</h1>
         <hr>
         {% block content %}
         {% endblock %}
     </body>
+    <footer>
+        <nav>
+            <a href="{% url 'show_all' %}">Return to all profiles View</a>
+        </nav>
+    </footer>
 </html>
