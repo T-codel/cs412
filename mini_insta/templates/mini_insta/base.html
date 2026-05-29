@@ -14,6 +14,9 @@
         {% endblock %}
     </body>
     <footer>
+        {% if profile %}
+        <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+        {% endif %}
         <nav>
             <a href="{% url 'show_all' %}">Return to all profiles View</a>
         </nav>

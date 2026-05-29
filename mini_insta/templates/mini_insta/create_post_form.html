@@ -15,12 +15,14 @@
         <tr>
             <th>Caption</tr>
             <td>{{form.caption}}</td>
-        </tr>
+        </th>
         <tr>
             <th>IMG URL</th>
             <td>{{form.image_url}} </td>
         </tr>
-    <input type="submit"></form>
-    <input type="cancel"></form>
+    </table>
+    <input type="submit">
+    <a href="{% url 'profile' profile.pk %}">Cancel</a>
+    </form>
 </div>
 {% endblock %}
