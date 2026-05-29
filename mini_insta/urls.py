@@ -4,7 +4,7 @@ from . import views
 from .views import ShowAllView
 from .views import ProfileDetailView
 from .views import PostDetailView
-
+from .views import CreatePostView
 # File: urls.py
 # Author: Taner Altan (altant@bu.edu), 05/27/2026
 # Description: urls.py is responsible for mapping given urls to the appropriate context. 
@@ -20,6 +20,6 @@ urlpatterns = [
     
     # /mini_insta/profile/x sends you to a page containing a given profile based upon a number. 
     path('profile/<int:pk>', ProfileDetailView.as_view(), name='profile'),
-
-    path('post/<int:pk>', PostDetailView.as_view(), name='profile'),
+    path('post/<int:pk>', PostDetailView.as_view(), name='post'),
+    path('profile/<int:pk>/create_post', CreatePostView.as_view(), name='create_post'),
 ]

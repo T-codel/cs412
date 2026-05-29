@@ -1,9 +1,14 @@
 import random
+from typing import Any
 
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic import DetailView
+from django.views.generic import CreateView
 from django.views.generic.detail import SingleObjectMixin
+from .forms import CreatePostForm
 from . import models
 
 # File: views.py
@@ -40,3 +45,22 @@ class PostDetailView(DetailView):
     template_name = 'mini_insta/show_post.html'
     
     context_object_name = 'post'
+
+
+class CreatePostView(CreateView):
+    form_class = CreatePostForm
+    template_name = "mini_insta/create_post_form.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        profile = self.kwargs['pk']
+        context['profile'] = models.Profile.objects.get(pk=profile)
+        return context
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        profile = self.kwargs['pk']
+        form.instance.profile = models.Profile.objects.get(pk=profile)
+        Uform = form.save()
+        image_url = self.request.POST['image_url']
+        models.Photo.objects.create(post=Uform, image_url=image_url)
+        return super().form_valid(form)

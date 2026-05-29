@@ -1,0 +1,26 @@
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<h1>New Post:</h1>
+<hr>
+<div>
+    <form action="{% url 'create_post' profile.pk %}" method="POST">
+    {% csrf_token %}
+
+    <table>
+        <tr>
+            <th>Caption</tr>
+            <td>{{form.caption}}</td>
+        </tr>
+        <tr>
+            <th>IMG URL</th>
+            <td>{{form.image_url}} </td>
+        </tr>
+    <input type="submit"></form>
+    <input type="cancel"></form>
+</div>
+{% endblock %}

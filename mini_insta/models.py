@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # File: urls.py
 # Author: Taner Altan (altant@bu.edu), 05/26/2026
@@ -48,7 +49,9 @@ class Post(models.Model):
     
     def get_all_photos(self):
         return Photo.objects.filter(post=self).order_by("timestamp")
-        
+
+    def get_absolute_url(self):
+        return reverse('article', kwargs={'pk':self.pk})
 
 
 class Photo(models.Model):
