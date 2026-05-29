@@ -1,0 +1,21 @@
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<h1>{{post.profile.display_name}}: {{Post.caption}}</h1>
+<div>
+    <p>{{profile.timestamp}}</p>
+</div>
+<hr>
+<div>
+    {% for photo in post.get_all_photos %}
+        <div>
+            <img src="{{photo.image_url}}" alt="{{post.caption}}">
+        </div>
+    {% endfor %}
+    <p>{{post.caption}}</p>
+</div>
+{% endblock %}

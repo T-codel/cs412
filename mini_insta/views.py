@@ -33,3 +33,10 @@ class ProfileDetailView(DetailView):
     
     # name for html variable storing the information in the html file.
     context_object_name = 'profile'
+
+class PostDetailView(DetailView):
+    model = models.Post
+
+    template_name = 'mini_insta/show_post.html'
+    
+    context_object_name = 'post'
