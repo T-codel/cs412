@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-# File: urls.py
+# File: models.py
 # Author: Taner Altan (altant@bu.edu), 05/26/2026
 # Description: models.py estabilishes the datastructure of the data stored in sqlite3 for the website.
 
@@ -27,6 +27,7 @@ class Profile(models.Model):
     join_date = models.DateField(auto_now=True)
 
     def get_all_posts(self):
+        '''returns a list of all posts form the profile object'''
         return Post.objects.filter(profile=self).order_by("timestamp")
 
     
@@ -39,6 +40,7 @@ class Profile(models.Model):
 
 
 class Post(models.Model):
+    '''class used to represent a user's post'''
     profile = models.ForeignKey("Profile",on_delete=models.CASCADE)
     caption = models.TextField(blank=True)
     timestamp = models.DateField(auto_now=True)
@@ -48,17 +50,20 @@ class Post(models.Model):
         return f'{self.caption}'
     
     def get_all_photos(self):
+        '''returns a list of all photos form the post object'''
         return Photo.objects.filter(post=self).order_by("timestamp")
 
     def get_absolute_url(self):
-        return reverse('article', kwargs={'pk':self.pk})
+        '''returns the url of the post object'''
+        return reverse('post', kwargs={'pk':self.pk})
 
 
 class Photo(models.Model):
+    '''class used to represent a photo contained in a post which can have an arbitrary number of photos'''
     post = models.ForeignKey("Post",on_delete=models.CASCADE)
     image_url = models.TextField(blank=True)
     timestamp = models.DateField(auto_now=True)
 
     def __str__(self):
-        '''Return a string representation of this Comment object.'''
+        '''Return a string representation of this photo object.'''
         return f'{self.image_url}'

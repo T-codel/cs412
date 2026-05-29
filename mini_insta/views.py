@@ -40,24 +40,36 @@ class ProfileDetailView(DetailView):
     context_object_name = 'profile'
 
 class PostDetailView(DetailView):
+    '''subclass for displaying a post'''
+
+    # retrieve objects of type Post from the database
     model = models.Post
 
+    #associate an html file to render with the context from the class.
     template_name = 'mini_insta/show_post.html'
     
+    # name for html variable storing the information in the html file.
     context_object_name = 'post'
 
 
 class CreatePostView(CreateView):
+    '''subclass for displaying a create post page'''
+
+    # 
     form_class = CreatePostForm
+
+    #associate an html file to render with the context from the class.
     template_name = "mini_insta/create_post_form.html"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        '''Return the context, but with the proper profile context added.'''
         context = super().get_context_data(**kwargs)
         profile = self.kwargs['pk']
         context['profile'] = models.Profile.objects.get(pk=profile)
         return context
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        '''attaches a profile to a new form post and uses the inputted image to render.'''
         profile = self.kwargs['pk']
         form.instance.profile = models.Profile.objects.get(pk=profile)
         Uform = form.save()
