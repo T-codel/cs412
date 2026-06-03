@@ -11,6 +11,7 @@ from django.views.generic import CreateView
 from django.views.generic.detail import SingleObjectMixin
 from .forms import CreatePostForm, UpdateProfileForm
 from . import models
+from .forms import UpdatePostForm
 
 # File: views.py
 # Author: Taner Altan (altant@bu.edu), 05/27/2026
@@ -103,6 +104,39 @@ class DeletePostView(DeleteView):
 
     #associate an html file to render with the context from the class.
     template_name = 'mini_insta/delete_post_form.html'
+    
+    # name for html variable storing the information in the html file.
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        #get the default context
+        context = super().get_context_data(**kwargs)
+
+        context['profile'] = self.object.profile
+        return context
+    
+    def get_success_url(self):
+        '''Return a the URL to which we should be directed after the delete.'''
+ 
+ 
+        # get the pk for this post
+        pk = self.kwargs.get('pk')
+
+        post = models.Profile.objects.get(pk=pk)
+        # reverse to show the user's profile.
+        return reverse('post', kwargs={'pk':post.profile.pk})
+    
+
+class UpdatePostView(UpdateView):
+    '''subclass for displaying a post'''
+
+    # retrieve objects of type Post from the database
+    model = models.Post
+    
+    form_class = UpdatePostForm
+    
+    #associate an html file to render with the context from the class.
+    template_name = 'mini_insta/update_post_form.html'
     
     # name for html variable storing the information in the html file.
     context_object_name = 'post'

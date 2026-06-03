@@ -1,0 +1,24 @@
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Edit Post:</h1>
+<hr>
+
+<form method = "POST">
+    {% csrf_token %}
+
+    <h3>Caption</h3>
+    {{form.caption}}
+
+    <h3>Images</h3>
+    {% for photo in post.get_all_photos %}
+        <div>
+            <img src="{{photo.image_url}}" alt="{{post.caption}}">
+        </div>
+    {% endfor %}
+
+    <button type="submit">Update</button>
+    <a href="{% url 'profile' post.profile.pk %}">Cancel</a>
+</form>
+{% endblock %}

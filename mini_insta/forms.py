@@ -13,6 +13,15 @@ class CreatePostForm(forms.ModelForm):
         model = Post
         fields = ['caption']
 
+
+class UpdatePostForm(forms.ModelForm):
+    '''Handles a form to create a new post in the database'''
+    image_url = forms.URLField(label="Image Url", required=False)
+
+    class Meta:
+        model = Post
+        fields = ['caption']
+
 class UpdateProfileForm(forms.ModelForm):
     '''A form to update a quote to the database.'''
  
