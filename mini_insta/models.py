@@ -35,7 +35,10 @@ class Profile(models.Model):
         '''Establishes a string representation of the profile object'''
 
         #prints in the folowing format: username, display name, url, bio, join date
-        return f'username: {self.username},display_name: {self.display_name},profile_image_url: {self.profile_image_url},bio_text: {self.bio_text},join_date: {self.join_date},' 
+        return f'username: {self.username},display_name: {self.display_name},profile_image_url: {self.profile_image_url},bio_text: {self.bio_text},join_date: {self.join_date},'
+
+    def get_absolute_url(self):
+        return "/mini_insta/profile/%i/" % self.pk 
 
 
 

@@ -1,0 +1,23 @@
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Edit Profile:</h1>
+<hr>
+
+<form method = "Post">
+    {% csrf_token %}
+
+    <h3>Display Name</h3>
+    {{form.display_name}}
+
+    <h3>Profile Image Url</h3>
+    {{form.profile_image_url}}
+
+    <h3>Bio:</h3>
+    {{form.bio_text}}
+
+    <button type="submit">Update</button>
+    <a href="{% url 'profile' object.pk %}">Cancel</a>
+</form>
+{% endblock %}

@@ -17,5 +17,6 @@
         </div>
     {% endfor %}
     <p>{{post.caption}}</p>
+    <a href="{% url 'delete_post' post.pk %}">Delete</a>
 </div>
 {% endblock %}

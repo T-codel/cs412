@@ -4,11 +4,12 @@ from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse
+from django.views.generic import DeleteView, ListView, UpdateView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic.detail import SingleObjectMixin
-from .forms import CreatePostForm
+from .forms import CreatePostForm, UpdateProfileForm
 from . import models
 
 # File: views.py
@@ -76,3 +77,50 @@ class CreatePostView(CreateView):
         image_url = self.request.POST['image_url']
         models.Photo.objects.create(post=Uform, image_url=image_url)
         return super().form_valid(form)
+
+class UpdateProfileView(UpdateView):
+    '''A view to update an Profile and save it to the database.'''
+ 
+    model = models.Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_insta/update_profile_form.html"
+    
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new Article object.
+        '''
+        print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
+ 
+ 
+        return super().form_valid(form)
+    
+
+class DeletePostView(DeleteView):
+    '''subclass for displaying a post'''
+
+    # retrieve objects of type Post from the database
+    model = models.Post
+
+    #associate an html file to render with the context from the class.
+    template_name = 'mini_insta/delete_post_form.html'
+    
+    # name for html variable storing the information in the html file.
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        #get the default context
+        context = super().get_context_data(**kwargs)
+
+        context['profile'] = self.object.profile
+        return context
+    
+    def get_success_url(self):
+        '''Return a the URL to which we should be directed after the delete.'''
+ 
+ 
+        # get the pk for this post
+        pk = self.kwargs.get('pk')
+
+        post = models.Profile.objects.get(pk=pk)
+        # reverse to show the user's profile.
+        return reverse('post', kwargs={'pk':post.profile.pk})

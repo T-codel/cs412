@@ -16,6 +16,7 @@
         <p><img src= {{ profile.profile_image_url }} alt="Random Quote Image"></p>
 		{{profile.bio_text}}
 		</p>
+        <a href="{% url 'update_profile' profile.pk %}">Edit Profile</a>
         {% for post in profile.get_all_posts %}
             {% if post.get_all_photos.first %}
                 <a href="{% url 'post' post.pk %}"><img src= {{ post.get_all_photos.first.image_url }} alt="{{ post.caption }}"></a>
@@ -23,7 +24,7 @@
                 <a href="{% url 'post' post.pk %}">{{post.caption}}</a>
             {% endif %}
         {% endfor %}
-
+        
     </div>
 </div>
 {% endblock %}

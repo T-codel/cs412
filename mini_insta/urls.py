@@ -1,10 +1,12 @@
 from django.urls import path
 from django.conf import settings
 from . import views
-from .views import ShowAllView
+from .views import ShowAllView, UpdateProfileView
 from .views import ProfileDetailView
 from .views import PostDetailView
 from .views import CreatePostView
+from .views import DeletePostView
+
 # File: urls.py
 # Author: Taner Altan (altant@bu.edu), 05/27/2026
 # Description: urls.py is responsible for mapping given urls to the appropriate context. 
@@ -22,4 +24,7 @@ urlpatterns = [
     path('profile/<int:pk>', ProfileDetailView.as_view(), name='profile'),
     path('post/<int:pk>', PostDetailView.as_view(), name='post'),
     path('profile/<int:pk>/create_post', CreatePostView.as_view(), name='create_post'),
+    path('profile/<int:pk>/update', UpdateProfileView.as_view(), name='update_profile'),
+    path('post/<int:pk>/delete', DeletePostView.as_view(), name='delete_post'),
+
 ]
