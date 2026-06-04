@@ -1,8 +1,9 @@
+<!--
 # File: show_feed.html
 # Author: Taner Altan (altant@bu.edu), 06/03/2026
-# Description: show_feed
+# Description: show_feed responsible for showing the feed
 
-<!-- templates/show_all.html -->
+ templates/show_all.html -->
 {% extends 'mini_insta/base.html' %}
 {% load static %}
 {% block content %}
@@ -17,7 +18,8 @@
     <div>
 		<h2>{{post.profile.display_name}}</h2>
 		<p>
-        <a href="{% url 'profile' post.profile.pk %}"><img src= {{ post.profile.profile_image_url }} alt="Random Quote Image"></a><br>
+        <a href="{% url 'profile' post.profile.pk %}"><img src= {{ post.profile.profile_image_url }} alt="Random Quote Image"></a>
+        <a href="{% url 'profile' post.pk %}"><img src= {{ post.get_all_photos.first }} alt="Postimage"></a><br>
 		</p>
         <p>{{post.caption}}</p>
         <p>{{post.get_all_likes.count}} Likes {{post.get_all_comments.count}} Comments</p>
