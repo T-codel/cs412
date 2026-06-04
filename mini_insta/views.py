@@ -193,4 +193,3 @@ class ShowFeedView(DetailView):
         context = super().get_context_data(**kwargs)
         context['posts'] = self.object.get_post_feed()
         return context
-

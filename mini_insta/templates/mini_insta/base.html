@@ -1,3 +1,7 @@
+# File: base.html
+# Author: Taner Altan (altant@bu.edu), 06/03/2026
+# Description: base.html renders the header and footer. Used by other html files to decrease redundancy
+
 {% load static %}
 <html>
     <head>
@@ -18,9 +22,6 @@
         <a href="{% url 'create_post' profile.pk %}">Create Post</a>
         <a href="{% url 'feed' profile.pk %}">Feed</a>
         <a href="{% url 'profile' profile.pk %}">Profile</a>
-
-
-
         {% endif %}
         <nav>
             <a href="{% url 'show_all' %}">Return to all profiles View</a>
