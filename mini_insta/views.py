@@ -122,9 +122,9 @@ class DeletePostView(DeleteView):
         # get the pk for this post
         pk = self.kwargs.get('pk')
 
-        post = models.Profile.objects.get(pk=pk)
+        post = models.Post.objects.get(pk=pk)
         # reverse to show the user's profile.
-        return reverse('post', kwargs={'pk':post.profile.pk})
+        return reverse('profile', kwargs={'pk':post.profile.pk})
     
 
 class UpdatePostView(UpdateView):
@@ -155,6 +155,42 @@ class UpdatePostView(UpdateView):
         # get the pk for this post
         pk = self.kwargs.get('pk')
 
-        post = models.Profile.objects.get(pk=pk)
+        post = models.Post.objects.get(pk=pk)
         # reverse to show the user's profile.
-        return reverse('post', kwargs={'pk':post.profile.pk})
+        return reverse('post', kwargs={'pk':post.pk})
+    
+
+class ShowFollowingDetailView(DetailView):
+    # retrieve objects of type Follow from the database
+    model = models.Profile 
+
+    #associate an html file to render with the context of followers.
+    template_name = 'mini_insta/show_following.html'  
+
+    # name for html variable storing the information in the html file.
+    context_object_name = 'profile' 
+
+class ShowFollowersDetailView(DetailView):
+    # retrieve objects of type Follow from the database
+    model = models.Profile 
+
+    #associate an html file to render with the context of followers.
+    template_name = 'mini_insta/show_followers.html'  
+
+    # name for html variable storing the information in the html file.
+    context_object_name = 'profile' 
+
+
+class ShowFeedView(DetailView):
+    model = models.Profile
+
+    template_name = 'mini_insta/show_feed.html'  
+
+    context_object_name = 'profile' 
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        '''Return the context, but with the proper context added.'''
+        context = super().get_context_data(**kwargs)
+        context['posts'] = self.object.get_post_feed()
+        return context
+

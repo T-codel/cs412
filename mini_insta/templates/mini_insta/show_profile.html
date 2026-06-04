@@ -14,6 +14,8 @@
     <div>
 		<p>
         <p><img src= {{ profile.profile_image_url }} alt="Random Quote Image"></p>
+        <a href="{% url 'followers' profile.pk %}">{{profile.get_num_followers}} Followers of {{profile.display_name}}</a>
+        <a href="{% url 'following' profile.pk %}">{{profile.get_num_following}} is Following</a>
 		{{profile.bio_text}}
 		</p>
         <a href="{% url 'update_profile' profile.pk %}">Edit Profile</a>

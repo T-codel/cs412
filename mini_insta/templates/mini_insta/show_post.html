@@ -19,5 +19,13 @@
     <p>{{post.caption}}</p>
     <a href="{% url 'delete_post' post.pk %}">Delete</a>
     <a href="{% url 'update_post' post.pk %}">Update</a>
+    <p> {{post.get_all_likes.count}} Likes</p>
+    {% for comment in post.get_all_comments %}
+        <div>
+            <p>{{comment.profile.display_name}}</p>
+            <p>{{comment.text}}</p>
+        </div>
+    {% endfor %}
+
 </div>
 {% endblock %}

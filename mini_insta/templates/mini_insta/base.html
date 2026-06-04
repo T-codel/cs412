@@ -16,6 +16,11 @@
     <footer>
         {% if profile %}
         <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+        <a href="{% url 'feed' profile.pk %}">Feed</a>
+        <a href="{% url 'profile' profile.pk %}">Profile</a>
+
+
+
         {% endif %}
         <nav>
             <a href="{% url 'show_all' %}">Return to all profiles View</a>

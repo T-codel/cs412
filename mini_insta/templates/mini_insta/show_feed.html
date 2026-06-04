@@ -1,0 +1,30 @@
+<!-- templates/show_all.html -->
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1>{{profile.display_name}}'s Feed</h1>
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<br>
+<div>
+    {% for post in posts %}
+    <div>
+		<h2>{{post.profile.display_name}}</h2>
+		<p>
+        <a href="{% url 'profile' post.profile.pk %}"><img src= {{ post.profile.profile_image_url }} alt="Random Quote Image"></a><br>
+		</p>
+        <p>{{post.caption}}</p>
+        <p>{{post.get_all_likes.count}} Likes {{post.get_all_comments.count}} Comments</p>
+        {% for comment in post.get_all_comments %}
+            <p>{{comment.profile.display_name}}, {{comment.timestamp}}</p>
+            <p>{{comment.text}}</p>
+        {% endfor %}
+
+    </div>
+ 
+ 
+    {% endfor %}
+<div>
+{% endblock %}
