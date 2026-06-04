@@ -1,0 +1,31 @@
+<!--
+# File: search_results.html
+# Author: Taner Altan (altant@bu.edu), 06/04/2026
+# Description: responsible for displaying the results after searching
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Query results: {{query}}</h1>
+<hr>
+<div>
+    <h1>Profiles with: {{query}}</h1>
+    {% for profile in profiles %}
+        <div>
+            <a href="{% url 'profile' profile.pk %}"><img src= {{ profile.profile_image_url }} alt="Random Quote Image"></a><br>
+		    {{profile.bio_text}}
+        </div>
+    {% endfor %}
+    <hr>
+    <h1>Posts with: {{query}}</h1>
+    {% for post in posts %}
+        {% if post.get_all_photos.first %}
+            <p><a href="{% url 'post' post.pk %}"><img src= {{ post.get_all_photos.first.image_url }} alt="{{ post.caption }}"></a></p>
+        {% else %}
+            <p><a href="{% url 'post' post.pk %}">{{post.caption}}</a></p>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

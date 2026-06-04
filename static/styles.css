@@ -12,7 +12,7 @@ body {
 
 h1,h2,h3,h4,h5{
     font-weight: normal;
-    background:aliceblue;
+    background:rgb(255, 249, 240);
     margin: 0;
 }
 
@@ -22,7 +22,7 @@ a, a:visited {
 }
 
 a:hover {
-    color: darkblue;
+    color: rgb(139, 0, 0);
     text-decoration: none;
     background-color: white;
     /* font-weight: bold; */
@@ -47,7 +47,7 @@ header {
 
 footer {
     width: 100%;
-    background:aliceblue;
+    background:rgb(255, 240, 240);
     position: fixed;
     bottom: 0px;
 }
@@ -69,7 +69,7 @@ footer {
 
 div.wrapper h1 {
     text-align: center;
-    color: darkblue;
+    color: darkred;
     margin: 10px auto;
     font-size: 2.4 em; 
 
@@ -77,14 +77,14 @@ div.wrapper h1 {
 
 div.wrapper h2 {
     text-align: left;
-    color: darkblue;
+    color: darkred;
     margin: 5px auto;
     font-size: 2 em; 
 }
 
 
 section {
-    border: 2px solid darkblue;    /* border around each event */
+    border: 2px solid darkred;    /* border around each event */
     position: relative;
     padding-bottom: 4px;
 }

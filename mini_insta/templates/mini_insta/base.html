@@ -22,6 +22,7 @@
         <a href="{% url 'create_post' profile.pk %}">Create Post</a>
         <a href="{% url 'feed' profile.pk %}">Feed</a>
         <a href="{% url 'profile' profile.pk %}">Profile</a>
+        <a href="{% url 'search' profile.pk %}">Search</a>
         {% endif %}
         <nav>
             <a href="{% url 'show_all' %}">Return to all profiles View</a>

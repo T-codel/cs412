@@ -91,10 +91,12 @@ class Post(models.Model):
         return reverse('post', kwargs={'pk':self.pk})
 
     def get_all_comments(self):
+        '''returns all comments on a post'''
         comments = Comment.objects.filter(post=self)
         return comments.order_by("timestamp")
 
     def get_all_likes(self):
+        '''returns all likes on a post. Notably includes who did it'''
         likes = Like.objects.filter(post=self)
         return likes.order_by("timestamp")
 

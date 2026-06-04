@@ -182,6 +182,7 @@ class ShowFollowersDetailView(DetailView):
 
 
 class ShowFeedView(DetailView):
+    #view for creating feed
     model = models.Profile
 
     template_name = 'mini_insta/show_feed.html'  
@@ -191,5 +192,43 @@ class ShowFeedView(DetailView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         '''Return the context, but with the proper context added.'''
         context = super().get_context_data(**kwargs)
+        #error resolves itself on runtime when self has the proper context
         context['posts'] = self.object.get_post_feed()
+        return context
+
+
+class SearchView(ListView):
+    model = models.Profile
+    template_name = 'mini_insta/search_results.html'
+
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Try to dispatch to the right method; doesn't add any context if query is empty. Otherwise, adds all of the profile objects to the context and redirects to the search html page.'''
+        if 'query' not in self.request.GET:
+            profile = models.Profile.objects.get(pk=self.kwargs['pk'])
+            return render(request, 'mini_insta/search.html', {'profile' : profile})
+        else:
+            return super().dispatch(request, *args, **kwargs)
+        
+    def get_queryset(self):
+        '''returns every post that contains a caption with the query string'''
+        query = self.request.GET.get('query','')
+        return models.Post.objects.filter(caption__icontains=query)
+
+    def get_context_data(self, **kwargs):
+        '''retrieves context needed to handle a search query'''
+        #retrieves the context already stored
+        context = super().get_context_data(**kwargs)
+        #gets the value of the qeury variable stored in search.html
+        query = self.request.GET.get('query','')
+        #gets the Profile corresponding to the post's pk using a filter.
+        profile = models.Profile.objects.get(pk=self.kwargs['pk'])
+        # adds the proper profile to the context
+        context['profile'] = profile
+        # adds the retrieved qeury to the context
+        context['query'] = query
+        # uses a ORM query to filter by the query in all captions
+        context['posts'] = models.Post.objects.filter(caption__icontains=query)
+        # uses multiple ORM queries to check for profiles containing if a profile contains the query string
+        context['profiles'] = models.Profile.objects.filter(display_name__icontains=query) | models.Profile.objects.filter(bio_text__icontains=query) | models.Profile.objects.filter(username__icontains=query)
         return context
