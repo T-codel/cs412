@@ -1,6 +1,7 @@
 import random
 from typing import Any
 
+from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -54,7 +55,7 @@ class PostDetailView(DetailView):
     context_object_name = 'post'
 
 
-class CreatePostView(CreateView):
+class CreatePostView(models.ProfileLoginRequiredMixin, CreateView):
     '''subclass for displaying a create post page'''
 
     # 
@@ -63,29 +64,34 @@ class CreatePostView(CreateView):
     #associate an html file to render with the context from the class.
     template_name = "mini_insta/create_post_form.html"
 
+    def get_login_url(self):
+        return reverse('login')
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         '''Return the context, but with the proper profile context added.'''
         context = super().get_context_data(**kwargs)
-        profile = self.kwargs['pk']
-        context['profile'] = models.Profile.objects.get(pk=profile)
+        context['profile'] = self.logged_prof()
         return context
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         '''attaches a profile to a new form post and uses the inputted image to render.'''
-        profile = self.kwargs['pk']
-        form.instance.profile = models.Profile.objects.get(pk=profile)
-        Uform = form.save()
-        image_url = self.request.POST['image_url']
-        models.Photo.objects.create(post=Uform, image_url=image_url)
-        return super().form_valid(form)
 
-class UpdateProfileView(UpdateView):
+        form.instance.profile = self.logged_prof()
+        response = super().form_valid(form)
+        image_url = self.request.POST['image_url']
+        models.Photo.objects.create(post=self.object, image_url=image_url)
+        return response
+
+class UpdateProfileView(models.ProfileLoginRequiredMixin,UpdateView):
     '''A view to update an Profile and save it to the database.'''
  
     model = models.Profile
     form_class = UpdateProfileForm
     template_name = "mini_insta/update_profile_form.html"
     
+    def get_object(self):
+        return self.logged_prof()
+
     def form_valid(self, form):
         '''
         Handle the form submission to create a new Article object.
@@ -96,7 +102,7 @@ class UpdateProfileView(UpdateView):
         return super().form_valid(form)
     
 
-class DeletePostView(DeleteView):
+class DeletePostView(models.ProfileLoginRequiredMixin,DeleteView):
     '''subclass for displaying a post'''
 
     # retrieve objects of type Post from the database
@@ -117,17 +123,11 @@ class DeletePostView(DeleteView):
     
     def get_success_url(self):
         '''Return a the URL to which we should be directed after the delete.'''
- 
- 
-        # get the pk for this post
-        pk = self.kwargs.get('pk')
 
-        post = models.Post.objects.get(pk=pk)
-        # reverse to show the user's profile.
-        return reverse('profile', kwargs={'pk':post.profile.pk})
+        return reverse('profile')
     
 
-class UpdatePostView(UpdateView):
+class UpdatePostView(models.ProfileLoginRequiredMixin,UpdateView):
     '''subclass for displaying a post'''
 
     # retrieve objects of type Post from the database
@@ -150,14 +150,8 @@ class UpdatePostView(UpdateView):
     
     def get_success_url(self):
         '''Return a the URL to which we should be directed after the delete.'''
- 
- 
-        # get the pk for this post
-        pk = self.kwargs.get('pk')
-
-        post = models.Post.objects.get(pk=pk)
-        # reverse to show the user's profile.
-        return reverse('post', kwargs={'pk':post.pk})
+        # reverse to show the user's profile. Pk isn't needed since 
+        return reverse('post')
     
 
 class ShowFollowingDetailView(DetailView):
@@ -181,7 +175,7 @@ class ShowFollowersDetailView(DetailView):
     context_object_name = 'profile' 
 
 
-class ShowFeedView(DetailView):
+class ShowFeedView(models.ProfileLoginRequiredMixin,DetailView):
     #view for creating feed
     model = models.Profile
 
@@ -195,17 +189,22 @@ class ShowFeedView(DetailView):
         #error resolves itself on runtime when self has the proper context
         context['posts'] = self.object.get_post_feed()
         return context
+    
+    def get_object(self):
+        return self.logged_prof()
 
 
-class SearchView(ListView):
+class SearchView(models.ProfileLoginRequiredMixin,ListView):
     model = models.Profile
     template_name = 'mini_insta/search_results.html'
 
 
     def dispatch(self, request, *args, **kwargs):
         '''Try to dispatch to the right method; doesn't add any context if query is empty. Otherwise, adds all of the profile objects to the context and redirects to the search html page.'''
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
         if 'query' not in self.request.GET:
-            profile = models.Profile.objects.get(pk=self.kwargs['pk'])
+            profile = self.logged_prof()
             return render(request, 'mini_insta/search.html', {'profile' : profile})
         else:
             return super().dispatch(request, *args, **kwargs)
@@ -221,10 +220,8 @@ class SearchView(ListView):
         context = super().get_context_data(**kwargs)
         #gets the value of the qeury variable stored in search.html
         query = self.request.GET.get('query','')
-        #gets the Profile corresponding to the post's pk using a filter.
-        profile = models.Profile.objects.get(pk=self.kwargs['pk'])
         # adds the proper profile to the context
-        context['profile'] = profile
+        context['profile'] = self.logged_prof()
         # adds the retrieved qeury to the context
         context['query'] = query
         # uses a ORM query to filter by the query in all captions
@@ -232,3 +229,13 @@ class SearchView(ListView):
         # uses multiple ORM queries to check for profiles containing if a profile contains the query string
         context['profiles'] = models.Profile.objects.filter(display_name__icontains=query) | models.Profile.objects.filter(bio_text__icontains=query) | models.Profile.objects.filter(username__icontains=query)
         return context
+    
+class LoggedProfileView(models.ProfileLoginRequiredMixin, DetailView):
+    model = models.Profile
+    template_name = 'mini_insta/show_profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        return self.logged_prof()
+    
+

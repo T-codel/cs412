@@ -13,7 +13,7 @@
     <div>
 		<h2>{{a.display_name}}</h2>
 		<p>
-        <a href="{% url 'profile' a.pk %}"><img src= {{ a.profile_image_url }} alt="Random Quote Image"></a><br>
+        <a href="{% url 'show_profile' a.pk %}"><img src= {{ a.profile_image_url }} alt="Random Quote Image"></a><br>
 		{{a.bio_text}}
 		</p>
     </div>

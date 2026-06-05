@@ -1,0 +1,28 @@
+<!--# File: login.html
+# Author: Taner Altan (altant@bu.edu), 06/03/2026
+# Description: responsible for detailing the login page
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<hr>
+<h1>Login</h1>
+<form method="post" action="{% url 'login' %}" >
+    {% csrf_token %}
+    {{form}}
+    <!-- This basic login form works, but after login in
+     assumed the existance of a page at /registration/profile, which
+     does not exist.  -->
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{% request.GET.next %}">
+    {% else %}
+    <input type="hidden" name="next" value="{% url 'show_all' %}">
+    {% endif %}
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

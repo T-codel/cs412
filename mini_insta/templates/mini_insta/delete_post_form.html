@@ -22,7 +22,7 @@
         {% csrf_token %}
         <input type='submit' value="Delete">
     </form>
-    <form method='GET' action="{% url 'profile' profile.pk %}">
+    <form method='GET' action="{% url 'profile' profile %}">
         {% csrf_token %}
         <input type='submit' value="Cancel">
     </form>

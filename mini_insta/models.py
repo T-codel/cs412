@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # File: models.py
 # Author: Taner Altan (altant@bu.edu), 05/26/2026
@@ -25,6 +27,9 @@ class Profile(models.Model):
 
     #Lists the join date of the user.
     join_date = models.DateField(auto_now=True)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE) ## NEW
+
 
     def get_all_posts(self):
         '''returns a list of all posts form the profile object'''
@@ -77,6 +82,7 @@ class Post(models.Model):
     profile = models.ForeignKey("Profile",on_delete=models.CASCADE)
     caption = models.TextField(blank=True)
     timestamp = models.DateField(auto_now=True)
+
 
     def __str__(self):
         '''Return a string representation of this Comment object.'''
@@ -141,3 +147,11 @@ class Like(models.Model):
     def __str__(self):
         '''Return a string representation of this photo object.'''
         return f'{self.profile} likes {self.post}'
+
+class ProfileLoginRequiredMixin(LoginRequiredMixin):
+    '''uses the hint to create a class that erturns the current user.'''
+    def logged_prof(self):
+        return Profile.objects.get(user=self.request.user)
+    
+    def get_login_url(self) -> str:
+        return reverse('login')

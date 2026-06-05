@@ -14,7 +14,7 @@
     <h1>Profiles with: {{query}}</h1>
     {% for profile in profiles %}
         <div>
-            <a href="{% url 'profile' profile.pk %}"><img src= {{ profile.profile_image_url }} alt="Random Quote Image"></a><br>
+            <a href="{% url 'show_profile' profile.pk %}"><img src= {{ profile.profile_image_url }} alt="Random Quote Image"></a><br>
 		    {{profile.bio_text}}
         </div>
     {% endfor %}

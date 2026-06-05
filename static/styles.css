@@ -3,14 +3,26 @@ img {
 }
 
 body {
-    background-color: #fff;
+    background-color: #f4f4f4;
     color: slategray;
     font-family: arial;
 }
 
+header h1, header h2 {
+    font-weight: normal;
+    background:rgb(233, 105, 62);
+    margin: 0;
+    color: white;
+    display: block;
+}
 
+p {
+    background: #fff;
+    padding: 5px 5px;
+    border-radius: 5px;
+}
 
-h1,h2,h3,h4,h5{
+h3,h4,h5{
     font-weight: normal;
     background:rgb(255, 249, 240);
     margin: 0;
@@ -24,7 +36,7 @@ a, a:visited {
 a:hover {
     color: rgb(139, 0, 0);
     text-decoration: none;
-    background-color: white;
+    background-color: #f4f4f4;
     /* font-weight: bold; */
 }
 
@@ -32,6 +44,7 @@ body {
     max-width: 960px;
     margin: 20px auto;
     padding: 20px auto;
+    background: #f4f4f4;
 }
 
 header {
@@ -47,7 +60,7 @@ header {
 
 footer {
     width: 100%;
-    background:rgb(255, 240, 240);
+    background:aliceblue;
     position: fixed;
     bottom: 0px;
 }
@@ -57,7 +70,7 @@ footer {
     border: 2px solid;
     max-width: 100%;
     position: relative;
-    top: 50px;
+    top: 75px;
     scroll-padding-top: 100px;
     /* scroll-padding-bottom: 100px; */
     padding-bottom: 50px;
@@ -119,7 +132,7 @@ nav button {
 
 
 .mc-table-head {
-    border: 1px dashed darkblue;    /*border around each row */
+    border: 1px dashed rgb(194, 194, 220);    /*border around each row */
     display: table-row;
     font-size: 1.2em;
 }

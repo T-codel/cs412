@@ -5,24 +5,30 @@
 {% load static %}
 <html>
     <head>
-        <title>PreisdentGram</title>
+        <title>PresidentGram</title>
         <link rel="stylesheet" href="{% static 'as2.css' %}">
     </head>
     <body>
         <nav>
             <a href="{% url 'show_all' %}">Home</a>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'profile' %}">My Profile</a></li>
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            {% endif %}
         </nav>
-        <h1>PreisdentGram</h1>
+        <h1>PresidentGram</h1>
         <hr>
         {% block content %}
         {% endblock %}
     </body>
     <footer>
         {% if profile %}
-        <a href="{% url 'create_post' profile.pk %}">Create Post</a>
-        <a href="{% url 'feed' profile.pk %}">Feed</a>
-        <a href="{% url 'profile' profile.pk %}">Profile</a>
-        <a href="{% url 'search' profile.pk %}">Search</a>
+        <a href="{% url 'create_post' %}">Create Post</a>
+        <a href="{% url 'feed' %}">Feed</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'search' %}">Search</a>
         {% endif %}
         <nav>
             <a href="{% url 'show_all' %}">Return to all profiles View</a>
