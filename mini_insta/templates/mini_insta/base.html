@@ -13,7 +13,11 @@
             <a href="{% url 'show_all' %}">Home</a>
             {% if request.user.is_authenticated %}
             <li><a href="{% url 'profile' %}">My Profile</a></li>
-            <li><a href="{% url 'logout' %}">Log out</a></li>
+            <li><form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+
+                <button type="submit">Update</button>
+            </form></li>
             {% else %}
             <li><a href="{% url 'login' %}">Log in</a></li>
             {% endif %}

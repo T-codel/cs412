@@ -19,7 +19,7 @@
      assumed the existance of a page at /registration/profile, which
      does not exist.  -->
     {% if request.GET.next %}
-    <input type="hidden" name="next" value="{% request.GET.next %}">
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
     {% else %}
     <input type="hidden" name="next" value="{% url 'show_all' %}">
     {% endif %}
