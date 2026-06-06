@@ -16,10 +16,11 @@
             <li><form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
 
-                <button type="submit">Update</button>
+                <button type="submit">logout</button>
             </form></li>
             {% else %}
             <li><a href="{% url 'login' %}">Log in</a></li>
+            <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
             {% endif %}
         </nav>
         <h1>PresidentGram</h1>

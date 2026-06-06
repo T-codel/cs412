@@ -55,6 +55,10 @@ class Profile(models.Model):
 
         return l
     
+    def all_followersQueryList(self):
+        return Follow.objects.filter(profile=self)
+
+    
     def get_num_followers(self):
         followers = Follow.objects.filter(profile=self)
         return followers.count()
@@ -105,7 +109,7 @@ class Post(models.Model):
         '''returns all likes on a post. Notably includes who did it'''
         likes = Like.objects.filter(post=self)
         return likes.order_by("timestamp")
-
+    
 
 class Photo(models.Model):
     '''class used to represent a photo contained in a post which can have an arbitrary number of photos'''

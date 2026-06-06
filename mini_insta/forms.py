@@ -26,6 +26,13 @@ class UpdateProfileForm(forms.ModelForm):
     '''A form to update a quote to the database.'''
  
     class Meta:
-        '''associate this form with the Article model.'''
+        '''associate this form with the Profile model.'''
         model = Profile
         fields = ['display_name','profile_image_url', 'bio_text']
+
+class CreateProfileForm(forms.ModelForm):
+    '''A form to handle mutable data about a profile.'''
+    class Meta: 
+        '''establishes the proper fields.'''
+        model = Profile 
+        fields = ['username','display_name','profile_image_url', 'bio_text']

@@ -1,0 +1,50 @@
+<!--
+# File: create_post_form.html
+# Author: Taner Altan (altant@bu.edu), 06/03/2026
+# Description: create_profile_form is the html used for the site where you can create a form.
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+<h1>New Profile:</h1>
+<hr>
+<div>
+    <form action="{% url 'create_profile' %}" method="POST">
+    {% csrf_token %}
+
+    <table>
+        <tr>
+            <th>Username</th>
+            <td>{{user_form.username}}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{user_form.password1}}</td>
+        </tr>
+        <tr>
+            <th>Confirm Password</th>
+            <td>{{user_form.password2}}</td>
+        </tr>
+        <tr>
+            <th>Display Name</th>
+            <td>{{form.display_name}}</td>
+        </tr>
+        <tr>
+            <th>Profile Image</th>
+            <td>{{form.profile_image_url}}</td>
+        </tr>
+        <tr>
+            <th>Bio Text</th>
+            <td>{{form.bio_text}} </td>
+        </tr>
+    </table>
+    <input type="submit">
+    <a href="{% url 'show_all' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

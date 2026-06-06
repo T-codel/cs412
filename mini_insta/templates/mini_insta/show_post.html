@@ -1,3 +1,10 @@
+<!--
+# File: show_post.html
+# Author: Taner Altan (altant@bu.edu), 06/05/2026
+# Description: shows a single profile. Edits to like and unlike
+-->
+
+
 {% extends 'mini_insta/base.html' %}
 {% load static %}
 {% block content %}
@@ -20,9 +27,15 @@
     {% if post.profile.user == request.user %}
         <a href="{% url 'delete_post' post.pk %}">Delete</a>
         <a href="{% url 'update_post' post.pk %}">Update</a>
+    {% else %}
+        {% if liked_by_user %}
+            <a href="{% url 'delete_like' post.pk %}">Unlike</a>
+        {% else %}
+            <a href="{% url 'like' post.pk %}">Like</a>
     {% endif %}
-
     <p> {{post.get_all_likes.count}} Likes</p>
+
+
     <hr>
     {% for comment in post.get_all_comments %}
         <div>

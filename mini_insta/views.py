@@ -4,15 +4,17 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import DeleteView, ListView, UpdateView
+from django.views.generic import DeleteView, ListView, TemplateView, UpdateView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic.detail import SingleObjectMixin
-from .forms import CreatePostForm, UpdateProfileForm
+from .forms import CreatePostForm, CreateProfileForm, UpdateProfileForm
 from . import models
 from .forms import UpdatePostForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # File: views.py
 # Author: Taner Altan (altant@bu.edu), 05/27/2026
@@ -42,6 +44,16 @@ class ProfileDetailView(DetailView):
     # name for html variable storing the information in the html file.
     context_object_name = 'profile'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            logged_in_profile = models.Profile.objects.get(user=self.request.user)
+            context['logged_in_profile'] = models.Profile.objects.get(user=self.request.user)
+            context['following'] = models.Follow.objects.filter(profile=self.object, follower_profile=logged_in_profile).exists()
+
+        return context
+
+
 class PostDetailView(DetailView):
     '''subclass for displaying a post'''
 
@@ -53,6 +65,14 @@ class PostDetailView(DetailView):
     
     # name for html variable storing the information in the html file.
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            logged_in_profile = models.Profile.objects.get(user=self.request.user)
+            context['logged_in_profile'] = models.Profile.objects.get(user=self.request.user)
+            context['liked_by_user'] = models.Like.objects.filter(post=self.object, profile=logged_in_profile).exists()
+        return context
 
 
 class CreatePostView(models.ProfileLoginRequiredMixin, CreateView):
@@ -231,6 +251,7 @@ class SearchView(models.ProfileLoginRequiredMixin,ListView):
         return context
     
 class LoggedProfileView(models.ProfileLoginRequiredMixin, DetailView):
+    '''used to handle the user's profile when logged in differently than the others'''
     model = models.Profile
     template_name = 'mini_insta/show_profile.html'
     context_object_name = 'profile'
@@ -238,4 +259,60 @@ class LoggedProfileView(models.ProfileLoginRequiredMixin, DetailView):
     def get_object(self):
         return self.logged_prof()
     
+
+class CreateProfileView(CreateView):
+    '''handles other profiles not logged into.'''
+    model = models.Profile
+    form_class = CreateProfileForm
+    template_name = 'mini_insta/create_profile_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_form'] = UserCreationForm()
+        return context
+    
+    def form_valid(self,form):
+        new_form = UserCreationForm(self.request.POST)
+        user = new_form.save()
+        login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        form.instance.user = user
+        return super().form_valid(form)
+    
+
+
+class LikeView(models.ProfileLoginRequiredMixin, TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        user = self.logged_prof()
+        Viewed_post = models.Post.objects.get(pk=kwargs['pk'])
+        models.Like.objects.create(post=Viewed_post, profile=user)
+        return redirect('post', pk=Viewed_post.pk)
+
+
+class DeleteLikeView(models.ProfileLoginRequiredMixin, TemplateView):
+    '''handles unliking'''
+    def dispatch(self, request, *args, **kwargs):
+        #get the user
+        user = self.logged_prof()
+        #get the viewed post id
+        Viewed_post = models.Post.objects.get(pk=kwargs['pk'])
+        #delete the viewed like
+        models.Like.objects.filter(post=Viewed_post, profile=user).delete()
+        return redirect('post', pk=Viewed_post.pk)
+
+class FollowView(models.ProfileLoginRequiredMixin, TemplateView):
+    '''handles following'''
+    def dispatch(self, request, *args, **kwargs):
+        user = self.logged_prof()
+        Viewed_profile = models.Profile.objects.get(pk=kwargs['pk'])
+        models.Follow.objects.create(profile=Viewed_profile, follower_profile=user)
+        return redirect('show_profile', pk=Viewed_profile.pk)
+
+class DeleteFollowView(models.ProfileLoginRequiredMixin, TemplateView):
+    '''handles unfollowing'''
+    def dispatch(self, request, *args, **kwargs):
+        user = self.logged_prof()
+        Viewed_profile = models.Profile.objects.get(pk=kwargs['pk'])
+        models.Follow.objects.filter(profile=Viewed_profile, follower_profile=user).delete()
+        return redirect('show_profile', pk=Viewed_profile.pk)
+
 
