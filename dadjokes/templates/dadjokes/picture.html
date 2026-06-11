@@ -1,0 +1,12 @@
+{% load static %}
+<html>
+    <head>
+        <title>Dad Jokes</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <h1>Dad Jokes</h1>
+        <hr>
+        <p><img src= {{ picture.image_url }} alt="Random picture"></p>
+    </body>
+</html>

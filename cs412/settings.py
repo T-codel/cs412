@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'order',
     'confirmation',
     'base',
-    'mini_insta'
+    'mini_insta',
+    'dadjokes',
+    "rest_framework"
 ]
 
 # Static images
@@ -144,3 +146,9 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     STATIC_URL = '/altant/static/'
     MEDIA_URL = '/altant/media/'
+
+REST_FRAMEWORK = {
+  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+  'PAGE_SIZE': 10
+}
+ 

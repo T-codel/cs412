@@ -153,7 +153,7 @@ class Like(models.Model):
         return f'{self.profile} likes {self.post}'
 
 class ProfileLoginRequiredMixin(LoginRequiredMixin):
-    '''uses the hint to create a class that erturns the current user.'''
+    '''uses the hint to create a class that returns the current user.'''
     def logged_prof(self):
         return Profile.objects.get(user=self.request.user)
     

@@ -28,6 +28,5 @@ urlpatterns = [
     path("restaurant/order/", include("order.urls")),
     path("restaurant/confirmation/", include("confirmation.urls")),
     path("mini_insta/", include("mini_insta.urls")),
-
-
+    path("dadjokes/", include("dadjokes.urls")),
 ]
