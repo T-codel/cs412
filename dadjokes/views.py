@@ -1,3 +1,8 @@
+# File: views.py
+# Author: Taner Altan (altant@bu.edu), 6/12/2026
+# Description: basic templates from previous assignments used to create the basic Django views.
+
+
 import math
 import random
 from rest_framework import serializers, generics
@@ -90,24 +95,38 @@ class PicturesListAPIView(generics.ListCreateAPIView):
  
 
 class JokeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+  '''
+  An API view to return a random Joke from a list of jokes. Used for specific Joke pages
+  '''
   queryset = Joke.objects.all()
   serializer_class = JokeSerializer
     
 
 
 class PictureDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+  '''
+  An API view to return a random Joke from a list of jokes. Used for specific Picture pages
+  '''
   queryset = Picture.objects.all()
   serializer_class = PictureSerializer
 
 
 class RandomTemplateAPIView(generics.RetrieveAPIView):
+  '''
+  An API view to return a random Joke
+  '''
   serializer_class = JokeSerializer
 
   def get_object(self):
+    '''overrides get_object to instead get a random object when we're using a random Picture api'''
     return random.choice(Joke.objects.all())
      
 class RandomPictureAPIView(generics.RetrieveAPIView):
+  '''
+  An API view to return a random Picture
+  '''
   serializer_class = PictureSerializer
 
   def get_object(self):
+    '''overrides get_object to instead get a random object when we're using a random Picture api'''
     return random.choice(Picture.objects.all())

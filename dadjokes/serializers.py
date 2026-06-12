@@ -1,9 +1,14 @@
+# File: serializers.py
+# Author: Taner Altan (altant@bu.edu), 6/12/2026
+# Description: responsible for converting Jokes and Pictures to .json
+
+
 from rest_framework import serializers
 from .models import *
  
 class JokeSerializer(serializers.ModelSerializer):
   '''
-  A serializer for the Article model.
+  A serializer for the Joke model.
   Specify which model/fields to send in the API.
   '''
  
@@ -25,7 +30,7 @@ class JokeSerializer(serializers.ModelSerializer):
 
 class PictureSerializer(serializers.ModelSerializer):
   '''
-  A serializer for the Article model.
+  A serializer for the Picture model.
   Specify which model/fields to send in the API.
   '''
 

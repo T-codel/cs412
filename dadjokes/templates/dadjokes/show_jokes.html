@@ -1,3 +1,9 @@
+<!--  
+File: show_jokes.py
+# Author: Taner Altan (altant@bu.edu), 6/12/2026
+# Description: basic html to show all jokes
+-->
+
 {% load static %}
 <html>
     <head>
@@ -5,11 +11,24 @@
         <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
-        <h1>Dad Jokes</h1>
- 
+        <header>
+            <nav>
+                <a href="{% url 'main3' %}">Home</a>
+                <a href="{% url 'jokes' %}">Jokes</a>
+                <a href="{% url 'pictures' %}">Pictures</a>
+                <a href="{% url 'random' %}">Random</a>
+            </nav>
+            <h1>Dad Jokes</h1>
+        </header>
         <hr>
         {% for joke in jokes %}
             <p>{{ joke }}</p>
         {% endfor %}
     </body>
+    <footer>
+        Dad Jokes Footer
+    </footer>
 </html>
+
+
+
