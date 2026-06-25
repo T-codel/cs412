@@ -10,7 +10,7 @@ body {
 
 header h1, header h2 {
     font-weight: normal;
-    background:rgb(233, 105, 62);
+    background:rgb(51, 101, 90);
     margin: 0;
     color: white;
     display: block;
@@ -24,7 +24,7 @@ p {
 
 h3,h4,h5{
     font-weight: normal;
-    background:rgb(255, 249, 240);
+    background:rgb(202, 204, 196);
     margin: 0;
 }
 
@@ -34,7 +34,7 @@ a, a:visited {
 }
 
 a:hover {
-    color: rgb(139, 0, 0);
+    color: rgb(154, 106, 44);
     text-decoration: none;
     background-color: #f4f4f4;
     /* font-weight: bold; */
@@ -51,7 +51,7 @@ header {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background:aliceblue;
+    background:rgb(126, 128, 129);
     position: fixed;
     top: 0px;
     z-index: 999;
@@ -60,11 +60,21 @@ header {
 
 footer {
     width: 100%;
-    background:aliceblue;
+    background:rgb(126, 128, 129);
     position: fixed;
     bottom: 0px;
 }
 
+.wrapper img{              /* centering and margin around whole wrapper element */
+    display: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 320;
+    height: 320;
+    object-fit: cover;
+    object-position: center;
+
+}
 
 .wrapper {              /* centering and margin around whole wrapper element */
     border: 2px solid;
@@ -82,7 +92,7 @@ footer {
 
 div.wrapper h1 {
     text-align: center;
-    color: darkred;
+    color: rgb(154, 106, 44);
     margin: 10px auto;
     font-size: 2.4 em; 
 
@@ -106,7 +116,7 @@ section {
 nav {
     justify-self: end;
     background: none;
-    color: darkblue;
+    color: rgb(51, 101, 90);
     /* border: 1px solid; */
 }
 
@@ -132,14 +142,14 @@ nav button {
 
 
 .mc-table-head {
-    border: 1px dashed rgb(194, 194, 220);    /*border around each row */
+    border: 1px dashed rgb(151, 151, 183);    /*border around each row */
     display: table-row;
     font-size: 1.2em;
 }
 
 .mc-table-head .detail {
     display: table-cell;
-    color:darkblue;
+    color:rgb(51, 101, 90);
     font-weight: bold;
     background-color: white;
     padding: 5px;
@@ -149,13 +159,13 @@ nav button {
 
 .mc-table-row  {
     display: table-row;
-    border: 1px dashed darkblue;    /*border around each row */
+    border: 1px dashed rgb(51, 101, 90);    /*border around each row */
     background-color: white;
 }
 
 
 .mc-table-row .detail {
-    color:darkblue;
+    color:rgb(51, 101, 90);
     display: table-cell;
    
     padding: 5px;

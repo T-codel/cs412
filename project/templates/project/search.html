@@ -1,0 +1,37 @@
+<!--
+# File: search.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: Used to retrieve the data for a user's search query. Functions as a home page.
+-->
+
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Search By Location & Price:</h3>
+
+<!--This form recieves the search information through text and number fields.-->
+<form method = "GET">
+    <div class="PriceRow">
+        <h4>City & Country:</h4>
+
+        <!--Query variable for City & Country-->
+        <input type="text" name="query">
+    </div>
+    <div class="PriceRow">
+        <h4>Minimum Price:</h4>
+
+        <!--min_price variable for The min price filter-->
+        <input type="number" name="min_price" min="0" step="0.01" value="{{min_price}}" placeholder="0.00">
+    </div>
+    <div class="PriceRow">
+        <h4>Maximum Price:</h4>
+
+        <!--max_price variable for The max price filter-->
+        <input type="number" name="max_price" min="0.01" step="0.01" value="{{max_price}}" placeholder="0.01">
+    </div>
+
+    <!--form submit button-->
+    <button type="submit">Search</button>
+</form>
+{% endblock %}

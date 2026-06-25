@@ -1,0 +1,33 @@
+<!--# File: login.html
+# Author: Taner Altan (altant@bu.edu), 06/20/2026
+# Description: responsible for detailing the login page
+-->
+
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- 
+-->
+<h3>Login</h3>
+
+<!--If the user attempts to book a hotel before logging in, they get this pink error message :) -->
+{% if request.GET.next %}
+<h4 style="color:brown; background-color: lightpink; text-align: center;">Please Login to Book a Room.</h4>
+{% endif %}
+<form method="post" action="{% url 'project_login' %}" >
+    {% csrf_token %}
+    {{form}}
+    <!-- This basic login form works, but after login in
+     assumed the existance of a page at /registration/profile, which
+     does not exist.  -->
+
+    <!--If the user attempts to book a hotel before logging in, the link redirects to the book_room page-->
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% else %}
+    <input type="hidden" name="next" value="{% url 'project_profile' %}">
+    {% endif %}
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

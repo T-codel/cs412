@@ -1,0 +1,32 @@
+<!--
+# File: cancel_room.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: handles the form for canceling a room
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1>Cancel {{booking.room.hotel.name}} booking?</h1>
+<!--
+
+Page for canceling a booking. This acts as a confirmation page.
+
+-->
+<br>
+<div>
+    <h2>Confirm Cancelation:</h2>
+    <h3>{{booking.room.hotel.name}}</h3>
+    <div></div>
+    <p>Room: {{booking.room.roomNum}} | {{booking.room.type}}</p>
+    <p>{{booking.startDate}} to {{booking.endDate}} | {{booking.get_num_nights}} nights </p>
+    <p>Total: ${{booking.get_total_price}}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Cancel Booking">
+    </form>
+    <a href="{% url 'bookedList' %}"></a>
+<div>
+{% endblock %}

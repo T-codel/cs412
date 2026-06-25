@@ -1,0 +1,68 @@
+<!--
+# File: create_profile_form.html
+# Author: Taner Altan (altant@bu.edu), 06/20/2026
+# Description: create_profile_form is the html used for the site where you can create an account.
+-->
+
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- 
+-->
+<h2>New Profile:</h2>
+<div>
+
+    <!--Basic form for creating a new profile. Nothing crazy.-->
+    <form action="{% url 'project_create_profile' %}" method="POST">
+    {% csrf_token %}
+
+    <div style="background-color: lightgray; padding: 16px; margin-bottom: 12px; width: fit-content; min-width: 300px;">
+        <table>
+            <tr>
+                <th>Username</th>
+                <td>{{user_form.username}}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{user_form.password1}}</td>
+            </tr>
+            <tr>
+                <th>Confirm Password</th>
+                <td>{{user_form.password2}}</td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <td>{{form.firstName}}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{form.lastName}}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{form.Address}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{form.email}}</td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td>{{form.dateOfBirth}}</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>{{form.phoneNumber}}</td>
+            </tr>
+        </table>
+    </div>
+    <div style="display: flex;">
+        <input type="submit">
+        <div style="margin-top: 16; margin-left: 16;">
+            <a href="{% url 'project_home' %}">Cancel</a>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}

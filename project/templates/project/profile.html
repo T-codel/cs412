@@ -1,0 +1,31 @@
+<!--
+# File: profile.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: used to show the user's information. This isn't social media so the user only needs to look at their own profile.
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1>Profile:</h1>
+<!-- 
+Simple profile html. Shows the stored information about the user with update links to update their booked hotels and profile information.
+-->
+<br>
+<div>
+    <div>
+        <p><b>First Name:</b> {{profile.firstName}}</p>
+        <p><b>Last Name:</b> {{profile.lastName}}</p>
+        <p><b>Date of Birth: </b>{{profile.dateOfBirth}}</p>
+        <p><b>Email: </b>{{profile.email}}</p>
+        <p><b>Home Address:</b> {{profile.Address}}</p>
+        <p><b>Phone Number:</b> {{profile.phoneNumber}}</p>
+    </div>
+    <div>
+		<h2><a href="{% url 'project_update_profile' %}">Update Information</a></h2>
+		<h2><a href="{% url 'bookedList' %}">Booked Hotels</a></h2>
+    </div>
+<div>
+{% endblock %}

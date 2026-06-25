@@ -1,0 +1,31 @@
+<!--
+# File: home.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: home page That shows all hotels
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1>Search Hotels:</h1>
+<!-- 
+-->
+<br>
+<div>
+    <!--This is a show_all page that exists, but isn't really linked to the main page of the site. It shows all the hotels. The mainpage is search.html and search.results.html-->
+    {% for hotel in hotels %}
+    <div>
+		<h2><a href="{% url 'currentHotel' hotel.pk %}">{{hotel.name}}</a></h2>
+		<p>
+        {% if hotel.get_all_images.first %}
+            <a href="{% url 'currentHotel' hotel.pk %}"><img src="{{hotel.get_all_images.first.imageFile}}" alt="{{hotel.name}}"></a><br>
+		{% endif %}
+		</p>
+    </div>
+ 
+ 
+    {% endfor %}
+<div>
+{% endblock %}

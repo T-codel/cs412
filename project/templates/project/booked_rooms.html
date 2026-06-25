@@ -1,0 +1,31 @@
+<!--
+# File: booked_rooms.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: Shows every hotel room the account has booked into
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1><b>Bookings:</b></h1>
+
+<!--A list of rooms that the current logged in customer has scheduled-->
+<br>
+<div>
+
+    <!--For every booked room, put the information in a nice simple div with the corresponding cancel link-->
+    {% for booking in bookings %}
+    <div>
+        <h3>{{booking.room.hotel.name}}</h3>
+        <div></div>
+        <p>Room: {{booking.room.roomNum}} | {{booking.room.type}}</p>
+        <p>{{booking.startDate}} to {{booking.endDate}} | {{booking.getNights}} nights </p>
+        <p>Total: ${{booking.getPrice}}</p>
+        <a href="{% url 'cancel' booking.pk %}">Cancel Booking</a>
+    </div>
+    <br>
+    {% endfor %}
+<div>
+{% endblock %}

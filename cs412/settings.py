@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'base',
     'mini_insta',
     'dadjokes',
-    "rest_framework"
+    "rest_framework",
+    "project"
 ]
 
 # Static images

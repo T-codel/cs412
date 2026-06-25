@@ -1,0 +1,46 @@
+<!-- # File: base.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: base.html renders the header and footer. Used by other html files to decrease redundancy
+-->
+{% load static %}
+<html>
+    <!--header links the stylesheet-->
+    <head>
+        <title>Hotel Finder</title>
+        <link rel="stylesheet" href="{% static 'project.css' %}">
+    </head>
+    <body>
+    <!--navbar. -->
+        <nav>
+            <a href="{% url 'project_home' %}">Home</a>
+
+            <!--If authenticated show the profile link-->
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'project_profile' %}">My Profile</a></li>
+            <li><form method="POST" action="{% url 'project_logout' %}">
+                {% csrf_token %}
+                <button style="margin-bottom: 12; margin-right: 10;" type="submit">Logout</button>
+            </form></li>
+            <!--If NOT authenticated show the login and create profile link-->
+            {% else %}
+            <li><a href="{% url 'project_login' %}">Log in</a></li>
+            <li><a href="{% url 'project_create_profile' %}">Create Profile</a></li>
+            {% endif %}
+        </nav>
+        <!--Name of website-->
+        <h1>Hotel Finder</h1>
+        <hr>
+        {% block content %}
+        {% endblock %}
+    </body>
+    <footer>
+        <!--Footer has more options for the profile page. You can see the list of hotels you booked-->
+        {% if profile %}
+        <a href="{% url 'bookedList' %}">Booked Hotels</a>
+        <a href="{% url 'project_profile' %}">Profile</a>
+        {% endif %}
+        <nav>
+            <a href="{% url 'project_home' %}">Return to Home Page</a>
+        </nav>
+    </footer>
+</html>

@@ -1,0 +1,35 @@
+<!--
+# File: update_profile.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: used to show the user's information. This isn't social media so the user only needs to look at their own profile.
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1>Profile:</h1>
+
+<!-- basic form to update a profile. Nothing too special-->
+
+<br>
+<div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <h2>First Name</h2>
+        {{form.firstName}}
+        <h2>Last Name</h2>
+        {{form.lastName}}
+        <h2>Address</h2>
+        {{form.Address}}
+        <h2>Email</h2>
+        {{form.email}}
+        <h2>Phone Number</h2>
+        {{form.phoneNumber}}
+
+        <input type="submit" value="Save Update">
+    </form>
+<div>
+{% endblock %}

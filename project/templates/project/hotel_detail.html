@@ -1,0 +1,43 @@
+<!--
+# File: hotel_detail.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: Used to render the webpage for a specific hotel.
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h3>{{hotel.name}}:</h3>
+<!--Used to display each hotel's individual page-->
+<br>
+<div>
+    <div>
+        <!--For each image a hotel has, this displays those images-->
+        {% for image in images %}
+            <img src="{{image.imageFile}}" alt="{{hotel.name}}">
+        {% endfor %}
+    </div>
+
+    <!--Important Hotel information here-->
+    <div>
+        <p><b>Location:</b> {{hotel.location}}</p>
+        <p><b>Rating: </b>{{hotel.Rating}}</p>
+        <p><b>Starting Price: </b>${{hotel.StartingPrice}}</p>
+        <p><b>Phone Number:</b> {{hotel.phoneNumber}}</p>
+    </div>
+
+    <div>
+        <!--
+        A listing of available rooms. note that for testing purposes hotels have 1-2 rooms. More could easily be added.
+        I seeded a large .csv already into the hotel names and didn't want to bother.
+        -->
+        <h3>Available Rooms:</h3>
+        {% for room in rooms %}
+            <p> <b><a href="{% url 'currentBook' room.pk%}">Book Room</a></b> <br> Room Type: {{room.type}} <br> Room Price: ${{room.RoomPrice}} <br> Room Number: {{room.roomNum}} <br></p>
+        {% endfor %}
+    </div>
+
+<div>
+{% endblock %}

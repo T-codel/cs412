@@ -1,0 +1,52 @@
+<!--
+# File: book_room.html
+# Author: Taner Altan (altant@bu.edu), 06/19/2026
+# Description: used to handle booking a specific room. Generated for each hotel room.
+-->
+
+<!-- templates/home.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+ 
+<h1><b>Booking from {{room.hotel.name}} </b></h1>
+
+<!--Used to display the page that shows when you attempt to book a form.-->
+<br>
+<div>
+
+    <!--Used to display the room's information.-->
+    <p>{{room.hotel.name}}</p>
+    <p>{{room.roomNum}}</p>
+    <p>{{room.type}}</p>
+    <p>{{room.hotel.PricePerNight}} Price Per Night</p>
+
+    <!--Form used to select the start and end date.-->
+    <form action="{% url 'currentBook' room.pk%}" method="post">
+        {% csrf_token %}
+
+        <!--Select start date. pardon the inline styling-->
+        <div style="display: flex; margin-top: 16;">
+            <h2>Start Date</h2>
+            <h2 style="margin-left: 64;">End Date</h2>
+        </div>
+        <div style="display: flex;">
+        {{form.startDate}}
+
+        <!--Select end date.-->
+        <div style="margin-left: 16;">
+            {{form.endDate}}
+        </div>
+
+        </div>
+
+        <!--Confirm and Cancel buttons for the form with the styling needed.-->
+        <div style="display: flex;">
+            <input type="submit" value="Confirm">
+            <div style="margin-top: 16; margin-left: 16;">
+                <a href="{% url 'currentHotel' room.hotel.pk %}" class="button">Cancel</a>
+            </div>
+        </div>
+    </form>
+<div>
+{% endblock %}

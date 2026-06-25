@@ -1,0 +1,35 @@
+<!--
+# File: search_results.html
+# Author: Taner Altan (altant@bu.edu), 06/04/2026
+# Description: responsible for displaying the results after searching
+-->
+
+{% extends 'project/base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Hotels In: {{query}}</h3>
+<div class="grid">
+
+    <!--shows the list of hotels obtained by the search. For each hotel, create a div card.-->
+    {% for hotel in hotels %}
+        <div class="card">
+            <!--Display the first image if the hotel has multiple images-->
+            {% if hotel.get_all_images.first %}
+                <a href="{% url 'currentHotel' hotel.pk %}"><img src="{{ hotel.get_all_images.first.imageFile }}" alt="{{ hotel.name }}"></a>
+            {% endif %}
+            
+            <!--Display the hotel name as a link-->
+            <div class="info">
+                <a href="{% url 'currentHotel' hotel.pk %}">{{hotel.name}}</a>
+
+                <!--Display important information about the hotel beneath the image-->
+                <p>Rating: {{hotel.Rating}}</p>
+                <p>Starting Price: {{hotel.StartingPrice}}</p>
+                <p>Location: {{hotel.location}}</p>
+            </div>
+        </div>
+    {% endfor %}
+    <hr>
+</div>
+{% endblock %}

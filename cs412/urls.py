@@ -29,4 +29,6 @@ urlpatterns = [
     path("restaurant/confirmation/", include("confirmation.urls")),
     path("mini_insta/", include("mini_insta.urls")),
     path("dadjokes/", include("dadjokes.urls")),
+    path("project/", include("project.urls")),
+
 ]
