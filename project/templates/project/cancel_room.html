@@ -22,7 +22,7 @@ Page for canceling a booking. This acts as a confirmation page.
     <div></div>
     <p>Room: {{booking.room.roomNum}} | {{booking.room.type}}</p>
     <p>{{booking.startDate}} to {{booking.endDate}} | {{booking.get_num_nights}} nights </p>
-    <p>Total: ${{booking.get_total_price}}</p>
+    <p>Total: ${{booking.getPrice}}</p>
     <form method="POST">
         {% csrf_token %}
         <input type="submit" value="Cancel Booking">
