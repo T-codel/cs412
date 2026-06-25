@@ -21,7 +21,7 @@ Page for canceling a booking. This acts as a confirmation page.
     <h3>{{booking.room.hotel.name}}</h3>
     <div></div>
     <p>Room: {{booking.room.roomNum}} | {{booking.room.type}}</p>
-    <p>{{booking.startDate}} to {{booking.endDate}} | {{booking.get_num_nights}} nights </p>
+    <p>{{booking.startDate}} to {{booking.endDate}} </p>
     <p>Total: ${{booking.getPrice}}</p>
     <form method="POST">
         {% csrf_token %}
