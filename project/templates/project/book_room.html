@@ -19,7 +19,7 @@
     <p>{{room.hotel.name}}</p>
     <p>{{room.roomNum}}</p>
     <p>{{room.type}}</p>
-    <p>{{room.hotel.PricePerNight}} Price Per Night</p>
+    <p>${{room.RoomPrice}} Price Per Night</p>
 
     <!--Form used to select the start and end date.-->
     <form action="{% url 'currentBook' room.pk%}" method="post">
